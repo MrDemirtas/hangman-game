@@ -7,7 +7,7 @@ const howToPlayData = [
   {
     id: "02",
     title: "Harf tahmin edin",
-    desc: "Sırasıyla harf tahmin edin. Tahmininiz doğruysa, bilgisayar ilgili boşlukları doldurur. Yanlışsa, biraz sağlık kaybedersiniz ve sekiz yanlış tahminden sonra sağlık tamamen tükenir.",
+    desc: "Sırasıyla harf tahmin edin. Tahmininiz doğruysa, bilgisayar ilgili boşlukları doldurur. Yanlışsa, sağlık kaybedersiniz ve 10 yanlış tahminden sonra sağlık tamamen tükenir.",
   },
   {
     id: "03",

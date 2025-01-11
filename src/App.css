@@ -209,8 +209,8 @@ html {
 .word-box {
   display: flex;
   justify-content: center;
-  padding: 9px 12px;
   width: 40px;
+  padding: 9px 12px;
   height: 66px;
   font-size: 40px;
   line-height: 48px;
@@ -221,17 +221,33 @@ html {
   opacity: 0.25;
 }
 
+.word-box.thenFour{
+  width: 34px;
+}
+
+.word-box.thenSix{
+  width: 36px;
+}
+
+.word-box.thenEight{
+  width: 28px;
+}
+
+.word-box.thenTen{
+  width: 25px;
+}
+
 .word-box.active {
   opacity: 1;
 }
 
 .word {
-  display: grid;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
   align-self: self-start;
-  justify-items: center;
-  gap: 12px 8px;
-  width: max-content;
-  grid-template-columns: repeat(7, max-content);
+  justify-content: center;
+  gap: 4px;
 }
 
 .word-box.space {
@@ -246,7 +262,7 @@ html {
 }
 
 .keyboard-btn {
-  padding: 10px;
+  padding: 4px;
   border-radius: 8px;
   background-color: #fff;
   border: none;

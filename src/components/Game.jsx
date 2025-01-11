@@ -16,7 +16,8 @@ const categoryConverter = (category) => {
 
 function Game({ handleModal, category }) {
   const [words, setWords] = useState([]);
-  const [wordIndex, setWordIndex] = useState(0);
+  const [wordIndex, setWordIndex] = useState(null);
+  const [splitLetter, setSplitLetter] = useState([]);
   const [splitWord, setSplitWord] = useState([]);
   const [health, setHealth] = useState(10);
   const [showModal, setShowModal] = useState(false);
@@ -24,10 +25,10 @@ function Game({ handleModal, category }) {
 
   useEffect(() => {
     restartGame();
-  }, [category]);
+  }, []);
 
   useEffect(() => {
-    if (splitWord.every((x) => x.guessed) && splitWord.length > 0) {
+    if (splitLetter.filter(x => x.letter.trim() !== "").every((x) => x.guessed) && splitLetter.length > 0) {
       if (wordIndex < words.length) {
         setTimeout(() => {
           hamdleShowModal("Kazandınız");
@@ -37,12 +38,13 @@ function Game({ handleModal, category }) {
         hamdleShowModal("Oyun Bitti");
       }
     }
-  }, [splitWord]);
+  }, [splitLetter]);
 
   useEffect(() => {
-    if (words.length === 0) return;
-    setSplitWord(words[wordIndex].split("").map((x) => ({ letter: x, guessed: false })));
-  }, [words, wordIndex]);
+    if (words.length === 0 || wordIndex === null) return;
+    setSplitWord(words[wordIndex].split(" ").map((x) => x));
+    setSplitLetter(words[wordIndex].split("").map((x) => ({ letter: x, guessed: false })));
+  }, [wordIndex, words]);
 
   useEffect(() => {
     if (health === 0) {
@@ -50,24 +52,28 @@ function Game({ handleModal, category }) {
       restartGame();
     }
   }, [health]);
-
-  const restartGame = () => {
-    const randomWords = gameData[categoryConverter(category)].sort(() => Math.random() - 0.5);
-    setWords(randomWords);
-    setHealth(10);
-    setWordIndex(0);
-    setSplitWord(randomWords[0].split("").map((x) => ({ letter: x, guessed: false })));
-  };
   
+  useEffect(() => {
+    if (words.length === 0) return;
+    setWordIndex(0);
+    setHealth(10);
+  }, [words]);
+  
+  const restartGame = () => {
+    const newWords = [...gameData[categoryConverter(category)]].sort(() => Math.random() - 0.5);
+    setWords(newWords);
+    setWordIndex(0); // Ensure wordIndex is reset after setting new words
+  };
+
   const handleKeyboardClick = (w) => {
     let isCorrect = false;
-    splitWord.map((x) => {
+    splitLetter.map((x) => {
       if (x.letter == w) {
         x.guessed = true;
         isCorrect = true;
       }
     });
-    setSplitWord([...splitWord]);
+    setSplitLetter([...splitLetter]);
 
     if (!isCorrect) {
       setHealth(health - 1);
@@ -104,30 +110,55 @@ function Game({ handleModal, category }) {
           <img src="./images/health.svg" alt="Health" />
         </div>
       </div>
-      <Word splitWord={splitWord} handleKeyboardClick={handleKeyboardClick} />
+      {
+        splitWord.length > 0 && (
+          <Word splitWord={splitWord} splitLetter={splitLetter} handleKeyboardClick={handleKeyboardClick} />
+        )
+      }
     </div>
   );
 }
 
-function Word({ splitWord, handleKeyboardClick }) {
+function Word({ splitWord, splitLetter, handleKeyboardClick }) {
+  const getWordWidth = (word) => {
+    if (word.length > 10) {
+      return " thenTen";
+    } else if (word.length > 8) {
+      return " thenEight";
+    }else if (word.length > 6) {
+      return " thenSix";
+    }else {
+      return "";
+    }
+  };
+
   return (
     <div className="game-content">
       <div className="word">
         {splitWord.map((x, i) => (
-          <span key={i} className={"word-box" + (x.letter.trim() === "" ? " space" : x.guessed ? " active" : "")}>
-            {x.guessed ? x.letter : ""}
-          </span>
+          <>
+            {x.split("").map((y, i) => {
+              const isGuessed = splitLetter.find((z) => z.letter === y && z.guessed === true);
+              return (
+                <span key={i} className={"word-box" + (getWordWidth(x)) + (isGuessed ? " active" : "")}>
+                  {isGuessed ? y : ""}
+                </span>
+              );
+            })}
+            {
+              (x.length > 3 || splitWord[i + 1]?.length > 3) && (splitWord.length - 1 !== i) ?
+                <span style={{ flexBasis: "100%" }}></span>
+                : 
+                (splitWord.length - 1) !== i &&
+                <span className="word-box space"></span>
+            }
+          </>
         ))}
       </div>
 
       <div className="keyboard">
         {Array.from("ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ").map((w) => (
-          <button
-            key={w}
-            className={"keyboard-btn" + (splitWord.find((x) => x.letter === w && x.guessed === true) ? " passive" : "")}
-            onClick={() => handleKeyboardClick(w)}
-            disabled={splitWord.find((x) => x.letter === w && x.guessed) ? true : false}
-          >
+          <button key={w} className={"keyboard-btn" + (splitLetter.find((x) => x.letter === w && x.guessed === true) ? " passive" : "")} onClick={() => handleKeyboardClick(w)} disabled={splitLetter.find((x) => x.letter === w && x.guessed) ? true : false}>
             {w}
           </button>
         ))}
