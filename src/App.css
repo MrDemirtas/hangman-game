@@ -230,11 +230,11 @@ html {
 
 .game-content {
   display: grid;
+  gap: 24px;
   justify-content: center;
   align-items: start;
   grid-template-columns: 1fr;
   margin-top: 60px;
-  height: 100%;
 }
 
 .word-box {
