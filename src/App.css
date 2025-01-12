@@ -14,6 +14,8 @@ html {
 
 .container {
   height: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +51,10 @@ html {
   background: linear-gradient(180deg, #fe71fe 16.42%, #7199ff 100%);
   box-shadow: 0px -12px 0px 0px #243041 inset, 0px -16px 0px 11px #9d2df5 inset;
   border: 2px solid #243041;
-
+  &:hover {
+    background: linear-gradient(180deg, #ff96ff 16.42%, #99b6ff 100%);
+    box-shadow: 0px -12px 0px 0px #2d3847 inset, 0px -16px 0px 11px #a742f5 inset;
+  }
   img {
     margin-inline: auto;
   }
@@ -66,6 +71,10 @@ html {
   border: 1px solid #140e66;
   box-shadow: 0px -2px 0px 3px #140e66 inset, 0px 1px 0px 6px #3c74ff inset;
   border-radius: 40px;
+
+  &:hover {
+    background-color: #5485ff;
+  }
 }
 
 .tab-container {
@@ -89,6 +98,9 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background: linear-gradient(180deg, #ff96ff 16.42%, #99b6ff 100%);
+  }
 }
 
 .tab-header-title {
@@ -101,6 +113,7 @@ html {
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.05em;
 }
+
 .how-to-play-list {
   margin-top: 80px;
   display: grid;
@@ -115,22 +128,31 @@ html {
   padding: 32px;
   background-color: #fff;
   border-radius: 20px;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: max-content;
+
+  span {
+    grid-column: 1;
+    grid-row: 1;
+    color: #2463ff;
+    font-size: 24px;
+    line-height: 28.8px;
+    letter-spacing: 0.05em;
+  }
 
   h2 {
-    display: flex;
-    gap: 16px;
+    grid-column: 2;
+    grid-row: 1;
     font-size: 24px;
     font-weight: 400;
     line-height: 28.8px;
     color: #261676;
     letter-spacing: 0.05em;
-
-    span {
-      color: #2463ff;
-    }
   }
 
   p {
+    grid-column: 1 / span 2;
+    grid-row: 2;
     line-height: 19.2px;
     color: #887dc0;
     letter-spacing: 0.05em;
@@ -140,6 +162,7 @@ html {
 .category-list {
   margin-top: 100px;
   display: grid;
+  margin-inline: auto;
   gap: 24px;
   list-style: none;
   padding: 0;
@@ -157,13 +180,17 @@ html {
     border-radius: 20px;
     padding: 24px;
     border: none;
+
+    &:hover {
+      background-color: #5485ff;
+    }
   }
 }
 
 .game-header {
-  display: grid;
+  display: flex;
+  justify-content: space-between;
   gap: 64px;
-  grid-template-columns: 1fr 1fr;
 }
 
 .game-header-left {
@@ -180,10 +207,11 @@ html {
 }
 
 .game-header-right {
-  display: grid;
+  display: flex;
   align-items: center;
-  grid-template-columns: 1fr max-content;
   gap: 16px;
+  width: 40%;
+  max-width: 400px;
 }
 
 .progress-bar {
@@ -202,15 +230,18 @@ html {
 
 .game-content {
   display: grid;
+  justify-content: center;
+  align-items: start;
+  grid-template-columns: 1fr;
   margin-top: 60px;
-  height: calc(100% - 150px);
+  height: 100%;
 }
 
 .word-box {
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 40px;
-  padding: 9px 12px;
   height: 66px;
   font-size: 40px;
   line-height: 48px;
@@ -221,19 +252,19 @@ html {
   opacity: 0.25;
 }
 
-.word-box.thenFour{
+.word-box.thenFour {
   width: 34px;
 }
 
-.word-box.thenSix{
+.word-box.thenSix {
   width: 36px;
 }
 
-.word-box.thenEight{
+.word-box.thenEight {
   width: 28px;
 }
 
-.word-box.thenTen{
+.word-box.thenTen {
   width: 25px;
 }
 
@@ -256,9 +287,10 @@ html {
 
 .keyboard {
   display: grid;
+  width: 80%;
   gap: 16px;
+  margin-inline: auto;
   grid-template-columns: repeat(6, 1fr);
-  align-content: end;
 }
 
 .keyboard-btn {
@@ -269,6 +301,11 @@ html {
   font-size: 24px;
   line-height: 36px;
   color: #261676;
+
+  &:hover {
+    background-color: #2463ff;
+    color: #fff;
+  }
 }
 
 .keyboard-btn.passive {
@@ -281,21 +318,22 @@ html {
   display: grid;
   justify-content: center;
   align-items: center;
+  height: 100%;
   z-index: 100;
   background: linear-gradient(180deg, rgba(26, 4, 58, 0.9) 0%, rgba(21, 18, 120, 0.9) 70.31%, rgba(43, 22, 119, 0.9) 100%);
-  
 }
 
 .modal-content {
   position: fixed;
   left: 26px;
   right: 26px;
+  margin-inline: auto;
   display: grid;
   justify-content: stretch;
   text-align: center;
   gap: 34px;
   padding: 24px;
-  background: linear-gradient(180deg, #344ABA 0%, #001479d4 100%);
+  background: linear-gradient(180deg, #344aba 0%, #001479d4 100%);
   border-radius: 40px;
   box-shadow: 0px -8px 0px 4px #140e66 inset, 0px 6px 0px 8px #2463ff inset;
 }
@@ -313,14 +351,224 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
-.pink-btn{
+.pink-btn {
   padding: 12px;
   width: 100%;
   font-size: 32px;
   line-height: 38.4px;
   letter-spacing: 0.05em;
   color: #fff;
-  background: linear-gradient(180deg, #FE71FE 16.42%, #7199FF 100%);
-  box-shadow: 0px -2px 0px 3px #140E66 inset, 0px 1px 0px 6px #C642FB inset;  
+  background: linear-gradient(180deg, #fe71fe 16.42%, #7199ff 100%);
+  box-shadow: 0px -2px 0px 3px #140e66 inset, 0px 1px 0px 6px #c642fb inset;
   border-radius: 40px;
+
+  &:hover {
+    background: linear-gradient(180deg, #ff96ff 16.42%, #99b6ff 100%);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .word-box {
+    width: 85px;
+    height: 112px;
+    font-size: 64px;
+    line-height: 76.8px;
+    border-radius: 32px;
+  }
+
+  .word-box.thenFour {
+    width: 85px;
+  }
+
+  .word-box.thenSix {
+    width: 63px;
+  }
+
+  .word-box.thenEight {
+    width: 49px;
+  }
+
+  .word-box.thenTen {
+    width: 40px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 50px 40px;
+  }
+
+  .modal-content {
+    width: 50%;
+  }
+
+  .start-menu {
+    width: 70%;
+  }
+
+  .how-to-play-list-item {
+    span {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      font-size: 88px;
+      line-height: 105.6px;
+    }
+
+    h2 {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    p {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  .tab-header-title {
+    margin-inline: auto;
+    font-size: 104px;
+    line-height: 124.8px;
+    -webkit-text-stroke: 4px #243041;
+  }
+
+  .category-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-list-item {
+    button {
+      padding: 62px;
+      font-size: 48px;
+      line-height: 57.6px;
+      border-radius: 40px;
+    }
+  }
+
+  .back-btn {
+    width: 64px;
+    height: 64px;
+    img {
+      width: 28px;
+    }
+  }
+
+  .game-header-left {
+    gap: 32px;
+    h1 {
+      font-size: 48px;
+      line-height: 57.6px;
+    }
+  }
+
+  .game-header-right {
+    gap: 40px;
+    img {
+      width: 53px;
+    }
+  }
+
+  .progress-bar {
+    height: 32px;
+    padding: 10px;
+  }
+
+  .keyboard-btn {
+    padding: 8px 4px;
+    font-size: 48px;
+    line-height: 57.6px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    padding: 50px 110px;
+  }
+
+  .modal-content {
+    width: 30%;
+  }
+
+  .start-menu {
+    width: 40%;
+  }
+
+  .how-to-play-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .how-to-play-list-item {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    justify-items: center;
+    padding: 48px 60px;
+    span {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    h2 {
+      grid-column: 1;
+      grid-row: 2;
+      font-size: 48px;
+      line-height: 57.6px;
+      text-align: center;
+    }
+
+    p {
+      grid-column: 1;
+      grid-row: 3;
+      text-align: center;
+      font-size: 26px;
+      line-height: 31.2px;
+    }
+  }
+
+  .tab-header-title {
+    font-size: 136px;
+    line-height: 163.2px;
+  }
+
+  .back-btn {
+    width: 94px;
+    height: 94px;
+    img {
+      width: 41px;
+    }
+  }
+
+  .category-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .word-box {
+    border-radius: 40px;
+    width: 112px;
+    height: 128px;
+    font-size: 88px;
+    line-height: 105.6px;
+  }
+  .word-box.thenFour {
+    width: 112px;
+  }
+
+  .word-box.thenSix {
+    width: 112px;
+  }
+
+  .word-box.thenEight {
+    width: 112px;
+  }
+
+  .word-box.thenTen {
+    width: 112px;
+  }
+
+  .game-header-left {
+    gap: 58px;
+    h1 {
+      font-size: 88px;
+      line-height: 105.6px;
+    }
+  }
 }

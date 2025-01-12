@@ -27,8 +27,9 @@ function HowToPlay({ handleHowToPlay }) {
       </div>
       <ul className="how-to-play-list">
         {howToPlayData.map((item) => (
-          <li key={item.id} className="how-to-play-list-item">    
-            <h2><span>{item.id}</span>{item.title}</h2>
+          <li key={item.id} className="how-to-play-list-item">  
+            <span>{item.id}</span>  
+            <h2>{item.title}</h2>
             <p>{item.desc}</p>
           </li>
         ))}

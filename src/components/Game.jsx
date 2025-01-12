@@ -28,7 +28,7 @@ function Game({ handleModal, category }) {
   }, []);
 
   useEffect(() => {
-    if (splitLetter.filter(x => x.letter.trim() !== "").every((x) => x.guessed) && splitLetter.length > 0) {
+    if (splitLetter.filter((x) => x.letter.trim() !== "").every((x) => x.guessed) && splitLetter.length > 0) {
       if (wordIndex < words.length) {
         setTimeout(() => {
           hamdleShowModal("Kazandınız");
@@ -52,13 +52,13 @@ function Game({ handleModal, category }) {
       restartGame();
     }
   }, [health]);
-  
+
   useEffect(() => {
     if (words.length === 0) return;
     setWordIndex(0);
     setHealth(10);
   }, [words]);
-  
+
   const restartGame = () => {
     const newWords = [...gameData[categoryConverter(category)]].sort(() => Math.random() - 0.5);
     setWords(newWords);
@@ -110,11 +110,7 @@ function Game({ handleModal, category }) {
           <img src="./images/health.svg" alt="Health" />
         </div>
       </div>
-      {
-        splitWord.length > 0 && (
-          <Word splitWord={splitWord} splitLetter={splitLetter} handleKeyboardClick={handleKeyboardClick} />
-        )
-      }
+      {splitWord.length > 0 && <Word splitWord={splitWord} splitLetter={splitLetter} handleKeyboardClick={handleKeyboardClick} />}
     </div>
   );
 }
@@ -125,34 +121,33 @@ function Word({ splitWord, splitLetter, handleKeyboardClick }) {
       return " thenTen";
     } else if (word.length > 8) {
       return " thenEight";
-    }else if (word.length > 6) {
+    } else if (word.length > 6) {
       return " thenSix";
-    }else {
+    } else {
       return "";
     }
   };
 
   return (
     <div className="game-content">
-      <div className="word">
+      <div className="word-content">
         {splitWord.map((x, i) => (
-          <>
-            {x.split("").map((y, i) => {
+          <div className="word" key={i}>
+            {x.split("").map((y, j) => {
               const isGuessed = splitLetter.find((z) => z.letter === y && z.guessed === true);
               return (
-                <span key={i} className={"word-box" + (getWordWidth(x)) + (isGuessed ? " active" : "")}>
+                <span key={j} className={"word-box" + getWordWidth(x) + (isGuessed ? " active" : "")}>
                   {isGuessed ? y : ""}
                 </span>
               );
             })}
             {
-              (x.length > 3 || splitWord[i + 1]?.length > 3) && (splitWord.length - 1 !== i) ?
-                <span style={{ flexBasis: "100%" }}></span>
-                : 
-                (splitWord.length - 1) !== i &&
-                <span className="word-box space"></span>
-            }
-          </>
+              (x.length > 3 || splitWord[i + 1]?.length > 3) && splitWord.length - 1 !== i ? 
+              <span style={{ flexBasis: "100%" }}></span> 
+              : 
+              splitWord.length - 1 !== i && 
+              <span className="word-box space"></span>}
+          </div>
         ))}
       </div>
 
